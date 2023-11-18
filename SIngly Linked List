@@ -186,7 +186,7 @@ void swap(int *xp, int *yp) {
     *yp = temp;
 }
 void sort(){
-    int a[100],i=0;
+    int arr[100],i=0;
     struct node* ptr=head,*p=head;
     while(ptr->next!=NULL){
         arr[i]=ptr->data;
