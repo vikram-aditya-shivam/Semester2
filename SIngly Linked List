@@ -1,0 +1,229 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node* next;
+};
+
+struct node* head;
+
+void insertfront() {
+    struct node* newnode = (struct node*)malloc(sizeof(struct node));
+    int value;
+    if (newnode == NULL) {
+        printf("Overflow");
+    } else if (head == NULL) {
+        printf("\nEnter the value : ");
+        scanf("%d", &value);
+        newnode->data = value;
+        newnode->next = NULL;
+        head = newnode;
+    } else {
+        printf("\nEnter the value : ");
+        scanf("%d", &value);
+        newnode->data = value;
+        newnode->next = head;
+        head = newnode;
+    }
+}
+
+void insertlast() {
+    struct node* newnode = (struct node*)malloc(sizeof(struct node));
+    int value;
+    if (newnode == NULL) {
+        printf("Overflow");
+    } else if (head == NULL) {
+        printf("\nEnter the value : ");
+        scanf("%d", &value);
+        newnode->data = value;
+        newnode->next = NULL;
+        head = newnode;
+    } else {
+        printf("Enter the value : ");
+        scanf("%d", &value);
+        newnode->data = value;
+        newnode->next = NULL;
+
+        struct node* temp = head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newnode;
+    }
+}
+
+void insertr() {
+    struct node* newnode = (struct node*)malloc(sizeof(struct node));
+    int value, key;
+    if (newnode == NULL) {
+        printf("Overflow");
+    } else if (head == NULL) {
+        printf("\nEnter the value : ");
+        scanf("%d", &value);
+        newnode->data = value;
+        newnode->next = NULL;
+        head = newnode;
+    } else {
+        printf("Enter the value : ");
+        scanf("%d", &value);
+        printf("Enter the key value : ");
+        scanf("%d", &key);
+        struct node* ptr = head;
+        while (ptr != NULL && ptr->data != key) {
+            ptr = ptr->next;
+        }
+        if (ptr == NULL) {
+            printf("Key not found in the list.\n");
+        } else {
+            newnode->data = value;
+            newnode->next = ptr->next;
+            ptr->next = newnode;
+        }
+    }
+}
+
+void display() {
+    struct node* ptr = head;
+    if (head == NULL) {
+        printf("List is empty\n");
+    } else {
+        while (ptr != NULL) {
+            printf("%d ", ptr->data);
+            ptr = ptr->next;
+        }
+        printf("\n");
+    }
+}
+void deletefront(){
+    struct node* ptr;
+    if(head==NULL){
+        printf("Underflow");
+    }
+    else if(head->next==NULL){
+        free(head);
+    }
+    else{
+        ptr=head->next;
+        head=NULL;
+        free(head);
+        head=ptr;
+    }
+}
+void deletelast(){
+    struct node* ptr;
+    if(head==NULL){
+        printf("Underflow");
+    }
+    else if(head->next==NULL){
+        free(head);
+    }
+    else{
+        struct node* ptr=head,*pre=NULL;
+        while(ptr->next!=NULL){
+            pre=ptr;
+            ptr=ptr->next;
+        }
+        pre->next=NULL;
+        free(ptr);
+    }
+}
+void deleter(){
+    struct node* ptr=head,*pre=NULL;
+    int key;
+    if(head==NULL){
+        printf("Underflow");
+    }
+    else if(head->next==NULL){
+        free(head);
+    }
+    else{
+        printf("Enter the key : ");
+        scanf("%d",&key);
+        while(ptr!=NULL && ptr->data!=key){
+            ptr=ptr->next;
+        }
+        pre=ptr->next;
+        free(pre);
+        ptr->next=ptr->next->next;
+    }
+}
+void deleteentire(){
+    if(head==NULL){
+        printf("No list");
+    }
+    struct node* ptr=head,*pre=NULL;
+    while(ptr->next!=NULL){
+        pre=ptr;
+        ptr=ptr->next;
+        free(pre);
+    }
+    head=NULL;
+}
+void search(){
+    int key,i=0,flag=0;
+    struct node* ptr=head;
+    if(head==NULL){
+        printf("empty list");
+    }
+    printf("enter the key : ");
+    scanf("%d",&key);
+    while(ptr->data!=key){
+        ptr=ptr->next;
+        i++;
+        flag=1;
+        break;
+    }
+    if(flag==1){
+    printf("%d is found at location %d ",key,i);}
+    else{
+        printf("key not found");
+    }
+}
+void swap(int *xp, int *yp) {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+void sort(){
+    int a[100],i=0;
+    struct node* ptr=head,*p=head;
+    while(ptr->next!=NULL){
+        arr[i]=ptr->data;
+        i++;
+        ptr=ptr->next;
+        int n=sizeof(arr)/sizeof(arr[0]);
+        for(int j=0;j<n;j++){
+            for(int k=0;k<n;k++){
+                if(arr[k]>arr[k+1]){
+                    swap(&arr[k],arr[k+1]);
+                }
+            }
+        }
+    }
+    i=0;
+    while(p->next!=NULL){
+        p->data=arr[i];
+        i++;
+        p=p->next;
+    }
+    display();
+    
+}
+
+int main() {
+    insertfront();
+    insertlast();
+    insertfront();
+    insertr();
+    insertlast();
+    insertr();
+    display();
+    deletefront();
+    display();
+    search();
+    search();
+    search();
+    sort();
+    return 0;
+}
